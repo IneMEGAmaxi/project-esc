@@ -1,4 +1,4 @@
-# project-esc
+# VASP tutorial for Ba / Ma students
 Files to help you get started with VASP.
 
 The Overview.html and files file need to be in the same directory. 
