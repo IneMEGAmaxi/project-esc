@@ -13097,8 +13097,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="SCF">SCF<a class="anchor-link" href="#SCF">&#182;</a></h2><p>Use the following <a href="./input_realSi/DOS/Input.zip" download> input files </a> to do an SCF calculation. For this make a new directory <code>mkdir scf1</code>.
-You will see that the POSCAR is a little different; this is the real silicon structure. (try to visualise it using the VESTA software)</p>
+<h2 id="SCF">SCF<a class="anchor-link" href="#SCF">&#182;</a></h2><p>Use the following <a href="./input_realSi/DOS/Input.zip" download> input files </a> to do an SCF calculation. For this make a new directory <code>mkdir scf1</code>.</p>
+<p>You will see that the POSCAR is a little different; this is the real silicon structure. (try to visualise it using the VESTA software)</p>
 
 </div>
 </div>
@@ -13106,7 +13106,7 @@ You will see that the POSCAR is a little different; this is the real silicon str
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="DOS">DOS<a class="anchor-link" href="#DOS">&#182;</a></h2><p>After the SCF calculation make a new directory <code>dos</code>. Copy the POSCAR, POTCAR, KPOINTS, INCAR, job_script and CHGCAR from <code>scf1</code> into <code>dos</code>.
+<h2 id="DOS">DOS<a class="anchor-link" href="#DOS">&#182;</a></h2><p>After the SCF calculation make a new directory <code>dos</code>. Copy the POSCAR, POTCAR, KPOINTS, INCAR, job_script and CHGCAR from <code>scf1</code> into <code>dos</code>. This way we start from an already converged density which was calculated with a small(er) amount of kpoints.
 We will need to make some changes to the input files.</p>
 <ul>
 <li>INCAR: add ICHARG=11      --&gt;  initial charge density (read from the CHGCAR that you copied) will not be altered</li>
