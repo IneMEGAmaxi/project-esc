@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>VASP_Computer_Setup</title>
+<title>VASPTutorial3-SCF_Calculation</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13082,8 +13082,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Setup-your-computer-for-VASP-calculation">Setup your computer for VASP-calculation<a class="anchor-link" href="#Setup-your-computer-for-VASP-calculation">&#182;</a></h1><p>Levi Slap - april 2019</p>
-<p>edited by Ine Arts 2020</p>
+<h1 id="VASP-Tutorial-3---SCF-Calculation">VASP Tutorial 3 - SCF Calculation<a class="anchor-link" href="#VASP-Tutorial-3---SCF-Calculation">&#182;</a></h1><h4 id="Levi-Slap---april-2019">Levi Slap - april 2019<a class="anchor-link" href="#Levi-Slap---april-2019">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In the last tutorial we started our first calculation. In this tutorial we will look at the input and corresponding output.</p>
 
 </div>
 </div>
@@ -13091,11 +13097,9 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>Before you can start with calculation using the VASP-package you will need to setup your
-computer and apply for an account to be able to calculate on the Flemish SuperComputers.
-This document will give some guidelines. This document is writen for the Windows
-user, Mac and Linux user can skip most of the steps. To complete the steps in this
-document a internet connection is required and it should take between 1 and 2h.</p>
+<h2 id="Input">Input<a class="anchor-link" href="#Input">&#182;</a></h2><p>We will look at a very simple system. Silicon, with only one atom in it unit cell. This is not the real structure of Si, which will be studied later in the tutorial. Take a look at all the <a href="./input_simpleSi/Input.zip" download> input files</a>.</p>
+<p>The tags in the INCAR file indicate that our calculation will be a regular self-consistent field (SCF) calculation. In each iteration a new electronic density is calculated, using the previous one to define the effective potential, untill the energy difference between two consecutive iterations reaches EDIFF.
+The position of the elements are fixed and stored in the POSCAR file.</p>
 
 </div>
 </div>
@@ -13103,54 +13107,26 @@ document a internet connection is required and it should take between 1 and 2h.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="VSC-account---Putty---WinSCP">VSC account - Putty - WinSCP<a class="anchor-link" href="#VSC-account---Putty---WinSCP">&#182;</a></h2><p>You will need to apply for a VSC account. <a href="https://www.vscentrum.be/user-portal" link> This</a> is the user portal of the Flemish Supercomputer centre, which links to the documentation and the account pages.</p>
-<ol>
-<li>To request the account, you can follow <a href="https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/getting_access.html" link> this guide</a> from the VSC documentation page.</li>
-</ol>
-<p>We recommend the option using <a href="https://www.putty.org/" link> _PuTTY_</a> (for Windows users) to generate an rsa key pair and to connect to the supercomputer later. You store the private key on your local computer, protected with a passphrase and upload the public one to the VSC account.</p>
-<hr>
-<h5 id="What-is-PuTTY?"><b>What is PuTTY?</b><a class="anchor-link" href="#What-is-PuTTY?">&#182;</a></h5><p>PuTTY is an ssh-client for Windows. The connection to the supercomputer happens over a secure connection called ssh (<b>s</b>ecure <b>sh</b>ell), using the rsa keys to encrypt all transfered data. For this a client is used. On Linux and Mac the <em>OpenSSH</em>-client is included by default and can be used with the <code>ssh</code> command in the terminal. For Windows <em>OpenSSH</em> is not available, instead <em>PuTTY</em> is the most popular option. (<em>Ofcourse you can use any ssh-client or even a virtual machine to emulate a Linux operating system, but we recommend this for beginners.</em>)</p>
-<hr>
-<p>After you have run through all the steps on the VSC documentation pages, you'll have recieved a confirmation mail that the account has been approved and created. It might take 15-30min for your public key to be ready for you to log in.</p>
-<ol>
-<li><p>Configure PuTTY to connect to the cluster: <a href="https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/text_mode_access_using_putty.html#text-mode-access-using-putty" link> VSC documentation</a>. The hostname for the tier-2 cluster in Antwerp is: <em>login-leibniz.hpc.uantwerpen.be</em></p>
-</li>
-<li><p>To be able to access the VASP software you will need to join the <em>avasp</em> group, as well as <em>aematcmt</em>. You can do this via the VSC account page.</p>
-</li>
-</ol>
-<p>A downside to using PuTTY is that you can't easily transfer files between your local computer and the supercomputer. <a href="https://winscp.net/eng/download.php" link> _WinSCP_</a> (Windows secure copy) solves this problem. This client offers a graphical user interface (GUI) for file transfer.</p>
-<ol>
-<li>install and configure WinSCP. It should be able to detect and use a saved PuTTY configuration. If not: the <a href="https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/data_transfer_using_winscp.html#winscp" link> VSC documentation</a> will help you. </li>
-</ol>
+<h2 id="Output">Output<a class="anchor-link" href="#Output">&#182;</a></h2><p>Our own <em>job_script</em> will create a file <em>out</em> which contains similar output as the OSZICAR and the possible errors that might occur. It is good practise to check the <em>out</em> file for errors and warnings.</p>
+<p>From the OUTCAR you can get a lot of information. At this stage we will only use a
+command to get the free energy of our system, type in: <code>grep ’free en’ OUTCAR</code>. (this command looks for a line containing the expression 'free en' in the OUTCAR file)
+This is the energy of system.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Linux">Linux<a class="anchor-link" href="#Linux">&#182;</a></h2><p>The VSC servers run on Linux. To navigate you will need a basic understanding of Linux.
-The following link can be a good start: <a href="http://linuxcommand.org/lc3_learning_the_shell.php">http://linuxcommand.org/lc3_learning_the_shell.php</a> .</p>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 
+    </div>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="VPN">VPN<a class="anchor-link" href="#VPN">&#182;</a></h2><p>To access the SuperComputers when you are abroad, you will have to
-setup a VPN connection to the UA-network. More info can be found <a href="https://www.uantwerpen.be/en/library/search-help/useful-information/remote-access/" link> here</a>. (The VPN is also usefull to access sci-hub from home.)</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="VESTA">VESTA<a class="anchor-link" href="#VESTA">&#182;</a></h2><p>VASP is a software package to do calculations on solid state structures. To visualize the structures VESTA can be used. <a href="http://www.jp-minerals.org/vesta/en/">http://www.jp-minerals.org/vesta/en/</a></p>
-
-</div>
-</div>
 </div>
     </div>
   </div>

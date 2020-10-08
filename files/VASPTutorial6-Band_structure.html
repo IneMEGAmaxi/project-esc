@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>VASP_Computer_Setup</title>
+<title>VASPTutorial6-Band_structure</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13082,8 +13082,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Setup-your-computer-for-VASP-calculation">Setup your computer for VASP-calculation<a class="anchor-link" href="#Setup-your-computer-for-VASP-calculation">&#182;</a></h1><p>Levi Slap - april 2019</p>
-<p>edited by Ine Arts 2020</p>
+<h1 id="VASP-Tutorial-6---Band-structure">VASP Tutorial 6 - Band structure<a class="anchor-link" href="#VASP-Tutorial-6---Band-structure">&#182;</a></h1><h5 id="Levi-Slap---april-2019">Levi Slap - april 2019<a class="anchor-link" href="#Levi-Slap---april-2019">&#182;</a></h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In this tutorial we will calculate the Band Structure of silicon.</p>
 
 </div>
 </div>
@@ -13091,11 +13097,11 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>Before you can start with calculation using the VASP-package you will need to setup your
-computer and apply for an account to be able to calculate on the Flemish SuperComputers.
-This document will give some guidelines. This document is writen for the Windows
-user, Mac and Linux user can skip most of the steps. To complete the steps in this
-document a internet connection is required and it should take between 1 and 2h.</p>
+<h2 id="Band-Structure">Band Structure<a class="anchor-link" href="#Band-Structure">&#182;</a></h2><p>We will use the output/input from the directory <code>scf1</code>. Make a new directory <code>band</code>and copy the POSCAR, POTCAR, KPOINTS, INCAR, job_script and CHGCAR from <code>scf1</code> into <code>band</code>.
+We will need to make some changes to the input files.</p>
+<ul>
+<li>INCAR: add ICHARG=11</li>
+</ul>
 
 </div>
 </div>
@@ -13103,25 +13109,27 @@ document a internet connection is required and it should take between 1 and 2h.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="VSC-account---Putty---WinSCP">VSC account - Putty - WinSCP<a class="anchor-link" href="#VSC-account---Putty---WinSCP">&#182;</a></h2><p>You will need to apply for a VSC account. <a href="https://www.vscentrum.be/user-portal" link> This</a> is the user portal of the Flemish Supercomputer centre, which links to the documentation and the account pages.</p>
-<ol>
-<li>To request the account, you can follow <a href="https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/getting_access.html" link> this guide</a> from the VSC documentation page.</li>
-</ol>
-<p>We recommend the option using <a href="https://www.putty.org/" link> _PuTTY_</a> (for Windows users) to generate an rsa key pair and to connect to the supercomputer later. You store the private key on your local computer, protected with a passphrase and upload the public one to the VSC account.</p>
-<hr>
-<h5 id="What-is-PuTTY?"><b>What is PuTTY?</b><a class="anchor-link" href="#What-is-PuTTY?">&#182;</a></h5><p>PuTTY is an ssh-client for Windows. The connection to the supercomputer happens over a secure connection called ssh (<b>s</b>ecure <b>sh</b>ell), using the rsa keys to encrypt all transfered data. For this a client is used. On Linux and Mac the <em>OpenSSH</em>-client is included by default and can be used with the <code>ssh</code> command in the terminal. For Windows <em>OpenSSH</em> is not available, instead <em>PuTTY</em> is the most popular option. (<em>Ofcourse you can use any ssh-client or even a virtual machine to emulate a Linux operating system, but we recommend this for beginners.</em>)</p>
-<hr>
-<p>After you have run through all the steps on the VSC documentation pages, you'll have recieved a confirmation mail that the account has been approved and created. It might take 15-30min for your public key to be ready for you to log in.</p>
-<ol>
-<li><p>Configure PuTTY to connect to the cluster: <a href="https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/text_mode_access_using_putty.html#text-mode-access-using-putty" link> VSC documentation</a>. The hostname for the tier-2 cluster in Antwerp is: <em>login-leibniz.hpc.uantwerpen.be</em></p>
-</li>
-<li><p>To be able to access the VASP software you will need to join the <em>avasp</em> group, as well as <em>aematcmt</em>. You can do this via the VSC account page.</p>
-</li>
-</ol>
-<p>A downside to using PuTTY is that you can't easily transfer files between your local computer and the supercomputer. <a href="https://winscp.net/eng/download.php" link> _WinSCP_</a> (Windows secure copy) solves this problem. This client offers a graphical user interface (GUI) for file transfer.</p>
-<ol>
-<li>install and configure WinSCP. It should be able to detect and use a saved PuTTY configuration. If not: the <a href="https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/data_transfer_using_winscp.html#winscp" link> VSC documentation</a> will help you. </li>
-</ol>
+<ul>
+<li>And the KPOINTS file:</li>
+</ul>
+
+<pre><code>kpoints for bandstructure L-Gamma-X-U K-Gamma
+10
+line
+reciprocal
+0.50000 0.50000 0.50000 1 #L
+0.00000 0.00000 0.00000 1 #Gamma
+
+0.00000 0.00000 0.00000 1 #Gamma
+0.00000 0.50000 0.50000 1 #X
+
+0.00000 0.50000 0.50000 1 #X
+0.25000 0.62500 0.62500 1 #U
+
+0.37500 0.75000 0.37500 1 #K
+0.00000 0.00000 0.00000 1 #Gamma</code></pre>
+<p>This wil generate 10 k-points along each line between the defined points. The chosen path is the standard path for this shape of BZ.</p>
+<p>Now start the calculation.</p>
 
 </div>
 </div>
@@ -13129,8 +13137,7 @@ document a internet connection is required and it should take between 1 and 2h.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Linux">Linux<a class="anchor-link" href="#Linux">&#182;</a></h2><p>The VSC servers run on Linux. To navigate you will need a basic understanding of Linux.
-The following link can be a good start: <a href="http://linuxcommand.org/lc3_learning_the_shell.php">http://linuxcommand.org/lc3_learning_the_shell.php</a> .</p>
+<h2 id="Visualisation">Visualisation<a class="anchor-link" href="#Visualisation">&#182;</a></h2><p>We provided some <a href="./Matlab/Matlab.zip" download> Matlab scripts </a> to visualize the Band Structure of Si. Download the EIGENVAL file using WINSCP and use the script <em>Bandstructure_Si.m</em>. You will have to tweak the script if you want to viualise other Band Structures for different elements.</p>
 
 </div>
 </div>
@@ -13138,19 +13145,34 @@ The following link can be a good start: <a href="http://linuxcommand.org/lc3_lea
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="VPN">VPN<a class="anchor-link" href="#VPN">&#182;</a></h2><p>To access the SuperComputers when you are abroad, you will have to
-setup a VPN connection to the UA-network. More info can be found <a href="https://www.uantwerpen.be/en/library/search-help/useful-information/remote-access/" link> here</a>. (The VPN is also usefull to access sci-hub from home.)</p>
-
+<div style="text-align: center">
+    <img src="./Notebooks_source/Band_Structure_realSi.png" width=700> <br>
+    Figure 1: The Band Structure of Silicon.
+</div>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="VESTA">VESTA<a class="anchor-link" href="#VESTA">&#182;</a></h2><p>VASP is a software package to do calculations on solid state structures. To visualize the structures VESTA can be used. <a href="http://www.jp-minerals.org/vesta/en/">http://www.jp-minerals.org/vesta/en/</a></p>
+<h2 id="Interpretation">Interpretation<a class="anchor-link" href="#Interpretation">&#182;</a></h2><p>You can clearly see the indirect bandgap in the above Band Structure. This means that the lowest point of the conduction band (unoccupied bands) and the highest point of the valence band are not at the same k-point.</p>
+<p>The optical gap is the smallest difference between valence and conduction band at the same k-point. (vertical line in this plot)</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
     </div>
   </div>

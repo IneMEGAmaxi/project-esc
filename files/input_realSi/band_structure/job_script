@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS -N Band_Structure  
+#PBS -l nodes=1:ppn=28
+#PBS -l walltime=1:00:00
+
+module load VASP/5.4.4-intel-2018a
+export I_MPI_COMPATIBILITY=4
+
+cd $PBS_O_WORKDIR
+
+echo "Job started:" /bin/date >> out
+mpirun vasp_std >> out
+echo "Job finished:" /bin/date >> out
+
+grep Elapsed OUTCAR >> out`

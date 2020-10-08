@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>VASP_Computer_Setup</title>
+<title>VASPTutorial1-Input&Output</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13082,8 +13082,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Setup-your-computer-for-VASP-calculation">Setup your computer for VASP-calculation<a class="anchor-link" href="#Setup-your-computer-for-VASP-calculation">&#182;</a></h1><p>Levi Slap - april 2019</p>
-<p>edited by Ine Arts 2020</p>
+<h1 id="Vasp-Tutorial-1---Input-&amp;-Output-files">Vasp Tutorial 1 - Input &amp; Output files<a class="anchor-link" href="#Vasp-Tutorial-1---Input-&amp;-Output-files">&#182;</a></h1><h5 id="Levi-Slap---april-2019">Levi Slap - april 2019<a class="anchor-link" href="#Levi-Slap---april-2019">&#182;</a></h5><h6 id="edits-Ine-Arts-2020">edits Ine Arts 2020<a class="anchor-link" href="#edits-Ine-Arts-2020">&#182;</a></h6>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In this tutorial we will give a general overvieuw of all the files needed to run the VASP software and its outputs</p>
 
 </div>
 </div>
@@ -13091,11 +13097,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>Before you can start with calculation using the VASP-package you will need to setup your
-computer and apply for an account to be able to calculate on the Flemish SuperComputers.
-This document will give some guidelines. This document is writen for the Windows
-user, Mac and Linux user can skip most of the steps. To complete the steps in this
-document a internet connection is required and it should take between 1 and 2h.</p>
+<h2 id="Input-files">Input files<a class="anchor-link" href="#Input-files">&#182;</a></h2><p>For the most basic calculations there are 4 files required: POSCAR, POTCAR, KPOINTS and INCAR. The files given in this tutorial are not connected, do not solve a single problem, they are just used as an example.</p>
 
 </div>
 </div>
@@ -13103,25 +13105,27 @@ document a internet connection is required and it should take between 1 and 2h.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="VSC-account---Putty---WinSCP">VSC account - Putty - WinSCP<a class="anchor-link" href="#VSC-account---Putty---WinSCP">&#182;</a></h2><p>You will need to apply for a VSC account. <a href="https://www.vscentrum.be/user-portal" link> This</a> is the user portal of the Flemish Supercomputer centre, which links to the documentation and the account pages.</p>
-<ol>
-<li>To request the account, you can follow <a href="https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/getting_access.html" link> this guide</a> from the VSC documentation page.</li>
-</ol>
-<p>We recommend the option using <a href="https://www.putty.org/" link> _PuTTY_</a> (for Windows users) to generate an rsa key pair and to connect to the supercomputer later. You store the private key on your local computer, protected with a passphrase and upload the public one to the VSC account.</p>
-<hr>
-<h5 id="What-is-PuTTY?"><b>What is PuTTY?</b><a class="anchor-link" href="#What-is-PuTTY?">&#182;</a></h5><p>PuTTY is an ssh-client for Windows. The connection to the supercomputer happens over a secure connection called ssh (<b>s</b>ecure <b>sh</b>ell), using the rsa keys to encrypt all transfered data. For this a client is used. On Linux and Mac the <em>OpenSSH</em>-client is included by default and can be used with the <code>ssh</code> command in the terminal. For Windows <em>OpenSSH</em> is not available, instead <em>PuTTY</em> is the most popular option. (<em>Ofcourse you can use any ssh-client or even a virtual machine to emulate a Linux operating system, but we recommend this for beginners.</em>)</p>
-<hr>
-<p>After you have run through all the steps on the VSC documentation pages, you'll have recieved a confirmation mail that the account has been approved and created. It might take 15-30min for your public key to be ready for you to log in.</p>
-<ol>
-<li><p>Configure PuTTY to connect to the cluster: <a href="https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/text_mode_access_using_putty.html#text-mode-access-using-putty" link> VSC documentation</a>. The hostname for the tier-2 cluster in Antwerp is: <em>login-leibniz.hpc.uantwerpen.be</em></p>
-</li>
-<li><p>To be able to access the VASP software you will need to join the <em>avasp</em> group, as well as <em>aematcmt</em>. You can do this via the VSC account page.</p>
-</li>
-</ol>
-<p>A downside to using PuTTY is that you can't easily transfer files between your local computer and the supercomputer. <a href="https://winscp.net/eng/download.php" link> _WinSCP_</a> (Windows secure copy) solves this problem. This client offers a graphical user interface (GUI) for file transfer.</p>
-<ol>
-<li>install and configure WinSCP. It should be able to detect and use a saved PuTTY configuration. If not: the <a href="https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/access/data_transfer_using_winscp.html#winscp" link> VSC documentation</a> will help you. </li>
-</ol>
+<h3 id="POSCAR">POSCAR<a class="anchor-link" href="#POSCAR">&#182;</a></h3><p>VASP is a software package to do calculations mainly of bulk materials. This is because VASP uses periodic boundary conditions which will expand a single unit cell to a bulk material during calculations.</p>
+<p>The POSCAR file contains all the nessecary info to build the unit cell, lattice geometry
+and the ionic positions of your structure.</p>
+<p>You can manipulate the POSCAR file in such a way that you can look at single atoms or surfaces but these will not be covered in the tutorials.</p>
+
+<pre><code>MnO3                            # This line is treated as comment
+   1.000                        # This is a scaling parameter. All latice parameters are multiplied by it.
+     5.0607   -0.057    0.000   # Unit vector a
+    -2.5739    4.357    0.000   # Unit vector b
+     0.0000    0.000    4.577   # Unit vector c
+   Mn   O                       # Types of elements in your cell
+     2     6                    # Number of atoms in you cell, here 2 Mn and 6 O
+Direct                          # Type of coordinates
+  0.164  0.835  0.000           # Positions of each element in the cell, given in the order defined above; first 2 are Mn, next 6 O
+  0.835  0.164  0.000
+  0.749  0.749  0.248
+  0.250  0.250  0.751
+  0.025  0.385  0.238
+  0.614  0.974  0.761
+  0.974  0.614  0.761
+  0.385  0.025  0.238</code></pre>
 
 </div>
 </div>
@@ -13129,8 +13133,9 @@ document a internet connection is required and it should take between 1 and 2h.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Linux">Linux<a class="anchor-link" href="#Linux">&#182;</a></h2><p>The VSC servers run on Linux. To navigate you will need a basic understanding of Linux.
-The following link can be a good start: <a href="http://linuxcommand.org/lc3_learning_the_shell.php">http://linuxcommand.org/lc3_learning_the_shell.php</a> .</p>
+<h3 id="POTCAR">POTCAR<a class="anchor-link" href="#POTCAR">&#182;</a></h3><p>A POTCAR file contains al the necessary information for the pseudopotential method. If you want to do calculations on a structure with multiple elements you need to concatenate (=chain together) the different POTCAR files. Make sure that the order of the POTCAR files is the same as the order of the elements in the POSCAR file. 
+You can concatenate two files with the Linux command: 'cat Example1 Example2 &gt; ExampleTEST', here the files Example1 and Exaple2 are chained together to form ExampleTEST.</p>
+<p>VASP contains a full library of all elements, ask your supervisor where to find the POTCAR files.</p>
 
 </div>
 </div>
@@ -13138,8 +13143,14 @@ The following link can be a good start: <a href="http://linuxcommand.org/lc3_lea
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="VPN">VPN<a class="anchor-link" href="#VPN">&#182;</a></h2><p>To access the SuperComputers when you are abroad, you will have to
-setup a VPN connection to the UA-network. More info can be found <a href="https://www.uantwerpen.be/en/library/search-help/useful-information/remote-access/" link> here</a>. (The VPN is also usefull to access sci-hub from home.)</p>
+<h3 id="KPOINTS">KPOINTS<a class="anchor-link" href="#KPOINTS">&#182;</a></h3><p>In the KPOINTS file you have to define how many k-points you will sample to define
+your Brillouin zone.</p>
+
+<pre><code>K-points                        # The first line is treated as comment
+ 0                              # Number of kpoints. 0 equals automatic generating scheme
+Monkhorst Pack                  # Monkhorst Pack scheme = the generating scheme
+ 11 11 11                       # Number of kpoints in each direction
+ 0 0 0                          # Centered around the Gamma point</code></pre>
 
 </div>
 </div>
@@ -13147,10 +13158,109 @@ setup a VPN connection to the UA-network. More info can be found <a href="https:
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="VESTA">VESTA<a class="anchor-link" href="#VESTA">&#182;</a></h2><p>VASP is a software package to do calculations on solid state structures. To visualize the structures VESTA can be used. <a href="http://www.jp-minerals.org/vesta/en/">http://www.jp-minerals.org/vesta/en/</a></p>
+<p>chain### INCAR
+In the INCAR you will have to specify all the parameters for your calculation. VASP has a lot of parameters that can be set, they can all be found on the VASP Wiki:
+<a href="https://cms.mpi.univie.ac.at/wiki/index.php/The_VASP_Manual">https://cms.mpi.univie.ac.at/wiki/index.php/The_VASP_Manual</a>.</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will discuss a few important tags:</p>
+<ul>
+<li><code>ENCUT</code> -&gt; determines the number of plane waves you include in the basis set. All plane waves with a kinetic energy smaller than ENCUT are considered. A good estimate can be found in the POTCAR file (largest ENMAX)</li>
+<li><code>EDIFF</code> = convergence criterium for stopping the Kohn-Sham method. The calculation is stopped if the energy difference between two consecutive steps is smaller than EDIFF. In general use 10^-6</li>
+<li><code>ISMEAR</code> -&gt; because the used k-points form a discrete mesh, in order to get an accurate integration over the entire brillouin zone, the energy levels are smeared out. In general (or when you have no prior knowledge of your material) ISMEAR = 0 (gaussian smearing) is a good choice. for insulators and semiconductors both 0 (gaussian smearing) or -5 (what is called tetrahedron method) are good options.</li>
+<li><code>SIGMA</code> = width of the smearing (in eV). In general use 0.05</li>
+</ul>
+
+<pre><code># General Setup
+  System = fcc
+  ENCUT = 240
+
+# Electronic Relaxation (SCF)
+  EDIFF = 1e-06
+  ISMEAR = 0
+  SIGMA = 0.05</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Output">Output<a class="anchor-link" href="#Output">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>VASP generates large quantities of output. We will discuss a few in this tutorial and some in the following ones.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="OUTCAR">OUTCAR<a class="anchor-link" href="#OUTCAR">&#182;</a></h3><p>The OUTCAR file contains a lot of information. You can vary the amount of output in the OUTCAR file by modifing the NWRITE tag in the INCAR file. A few examples of information you can find in the OUTCAR file are:</p>
+<ul>
+<li>Magnetic moments of the elements</li>
+<li>All input tags used</li>
+<li>CPU time for each calculation step in SCF cycle</li>
+<li>Forces/Stresses</li>
+<li>Dielectric proporties</li>
+<li>K-point occupancies</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="OSZICAR">OSZICAR<a class="anchor-link" href="#OSZICAR">&#182;</a></h3><p>The OSZICAR file contains the following information:</p>
+<ul>
+<li>N is the number of electronic steps</li>
+<li>E the current free energy</li>
+<li>dE the change in the free energy from the last to the current step </li>
+<li>d eps the change in the bandstructure energy</li>
+<li>ncg is the number of evaluations of the Hamiltonian acting on a wavefunction</li>
+<li>rms is the norm of the residuum of the trial wave functions (i.e. their approximate error)</li>
+<li>rms(c) is the difference between input and output charge density.</li>
+</ul>
+<p>Each line is an electronic step in the Kohn-Sham SCF method. During a calculation the last collumn (rms(c)) should allways be decending, if not there might be a problem with your calculation. On line 9 one can see that the dE is smaller than EDIFF, at this point the required accuracy has been reach and the calculations stops.</p>
+
+<pre><code>       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.546226698186E+01   -0.54623E+01   -0.11362E+02  3220   0.819E+00    0.772E+00
+DAV:   2    -0.310336401651E+01    0.23589E+01   -0.21641E+00  3528   0.169E+00    0.472E+00
+DAV:   3    -0.210388472666E+01    0.99948E+00   -0.31750E+00  3724   0.167E+00    0.902E-01
+DAV:   4    -0.210883659420E+01   -0.49519E-02   -0.63881E-03  3276   0.126E-01    0.453E-01
+DAV:   5    -0.211458929809E+01   -0.57527E-02   -0.66303E-03  4452   0.103E-01    0.103E-01
+DAV:   6    -0.211520672655E+01   -0.61743E-03   -0.80611E-04  4172   0.317E-02    0.368E-02
+DAV:   7    -0.211527708107E+01   -0.70355E-04   -0.21471E-04  4368   0.136E-02    0.764E-03
+DAV:   8    -0.211528390797E+01   -0.68269E-05   -0.19379E-05  3920   0.495E-03    0.395E-03
+DAV:   9    -0.211528425651E+01   -0.34854E-06   -0.36688E-07  3920   0.720E-04
+   1 F= -.21152843E+01 E0= -.21097680E+01  d E =-.211528E+01</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
     </div>
   </div>
